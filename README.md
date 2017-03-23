@@ -2,7 +2,7 @@
 A full fledged food ordering app written in Python, Django, HTML5, CSS and Javascript.
 
 ## Features
-- Restaurant dashboard.
+- Restaurant management.
 - menu editing.
 - food ordering and tracking.
 - user accounts.
