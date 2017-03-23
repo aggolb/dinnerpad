@@ -1,0 +1,401 @@
+<?php /* Template Name: Manly Template */ ?>
+{% load static %}
+<html>
+
+<head>
+
+<link href='https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<link rel="icon" type="image/png" href="{% static 'favi.png' %}" />
+<title>DinnerPad</title>
+ 
+<style type="text/css">
+
+#container{
+position:absolute;
+top:0px;
+left:0px;
+width:100%;
+height:100%;
+min-height:500px;
+min-width:320px;
+background-color:#000000;
+font-family:'Open Sans';
+}
+
+/* Page Header */
+
+#pageHeader{
+position:fixed;
+z-index:2;
+border:solid 1px #484848;
+background-color:#484848;
+text-align:center;
+height:3em;
+width:100%;
+
+}
+
+#pageTitle{
+
+font-size:1.6em;
+position:relative;
+top:0.3em;
+color:#FFFFFF;
+}
+
+
+/* Page Content */
+#pageContentBox{
+position:absolute;
+top:3em;
+min-height:100%;
+width:100%;
+border:solid 1px C4D0D0;
+background-color:#F9F9F9;
+padding-bottom:20%;
+font-size:1em;
+}
+
+#pageContentBox{
+font-size:1em;
+padding:10px;
+box-sizing:border-box;
+}
+
+/* Form */
+
+.textField{
+width:100%;
+padding:10px;
+box-sizing:border-box;
+font-size:1.1em;
+}
+
+#accountSettingsForm{
+padding:10px;
+}
+
+#saveProfileButton{
+width:100%;
+padding:10px;
+font-size:1.2em;
+background-color:#29991F;
+color:#FFFFFF;
+border:solid 1px #29991F;
+border-radius:3px;
+}
+
+#townDropdown{
+font-size:1.1em;
+width:100%;
+position:relative;
+top:10px;
+border:solid 1px #dcdcdc;
+border-radius:3px;
+padding:10px;
+}
+
+#loginButton{
+width:100%;
+padding:15px;
+color:#FFFFFF;
+border:solid 1px #dcdcdc;
+border-radius:3px;
+background-color:#29991F;
+cursor:pointer;
+}
+
+#loginFormBox{
+background-color:#FFFFFF;
+border:solid 1px #dcdcdc;
+padding:10px;
+position:fixed;
+width:20em;
+min-height:13em;
+top:50%;
+left:50%;
+margin-left:-10em;
+margin-top:-6.5em;
+box-sizing:border-box;
+z-index:4;
+
+display:none;
+}
+
+#faderBox{
+position:fixed;
+top:0px;
+left:0px;
+background-color:#000000;
+opacity:0.75;
+z-index:3;
+width:100%;
+height:100%;
+
+display:none;
+}
+
+#topBarBack{
+float:left;
+position:absolute;
+color:#FFFFFF;
+cursor:pointer;
+top:10px;
+left:10px;
+font-size:2.5em;
+}
+
+#topBarHelp{
+float:right;
+position:absolute;
+color:#FFFFFF;
+cursor:pointer;
+top:10px;
+right:10px;
+font-size:2.5em;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="container">
+
+<div id="faderBox">
+
+</div>
+
+<div id="pageHeader">
+
+<a href="/about/">
+<div id="topBarHelp">
+<i id="cartIcon" style="font-size:0.8em;"class="material-icons">&#xE8FD;</i>
+</div>
+</a>
+
+<span id="pageTitle">Registration</span>
+
+<div id="topBarBack" onClick="window.history.back()">
+<i style="font-size:0.8em;" class="material-icons">&#xE317;</i>
+</div>
+
+</div>
+
+<div id="pageContentBox">
+
+<div id="pageContent">
+
+<form id="registrationForm" action="/register/" method="post">{% csrf_token %}
+
+<div>
+<b>SIGN UP</b>
+</div>
+<p>Already have an account? <span id="loginBoxShow"style="color:#000000;cursor:pointer;"><u>Log In</u></span></p>
+<p><input id="usernameField" class="textField" type="text" name="username" placeholder="Username"></p>
+<p><input id="passwordField"class="textField" type="password" name="password" placeholder="Password"></p>
+<p><input id="confirmPasswordField"class="textField" type="password" name="passwordConfirm" placeholder="Confirm Password"></p>
+<br>
+<p><input id="firstNameField"class="textField" type="text" name="firstName" placeholder="First Name"></p>
+<p><input id="lastNameField"class="textField" type="text" name="lastName" placeholder="Last Name"></p>
+<p><input id="emailField"class="textField" type="email" name="email" placeholder="Email"></p>
+<p><input id="phoneField"class="textField" type="text" name="phone" placeholder="Phone Number"></p>
+<p><input id="addressl1Field"class="textField" type="text" name="addressl1" placeholder="Address Line 1 ( House # and Street )"></p>
+<p><input id="addressl2Field"class="textField" type="text" name="addressl2" placeholder="Address Line 2 ( Area )"></p>
+
+<p>
+<select id="townDropdown" name="city">
+<option value="kabwe">Kabwe</option>
+<option value="kitwe">Kitwe</option>
+<option value="lusaka">Lusaka</option>
+<option value="ndola">Ndola</option>
+</select>
+</p>
+<br>
+
+<div id="registrationErrorMessage">
+</div>
+
+{% if referral %}
+<p><input type="hidden" name="referral" value="{{referral}}"/></p>
+{% endif %}
+
+<p><input id="saveProfileButton" type="submit" name="submit" value="SIGN UP"/></p>
+
+</form>
+
+<div id="loginFormBox">
+
+<form id="loginForm"action="/login/" method="post">{% csrf_token %}
+<div id="loginMessage">
+</div>
+<p>
+<input class="textField" type="text" name="username" placeholder="Username"/>
+</p>
+<p>
+<input class="textField" type="password" name="password" placeholder="Password"/>
+</p>
+
+{% if next_url %}
+<p>
+<input type="hidden" name="next_url" value="{{next_url}}"/>
+</p>
+{% endif %}
+
+<p>
+<input id="loginButton" type="submit" name="submit" value="LOG IN"/>
+</p>
+</form>
+
+
+
+</div>
+
+<div id="test">
+
+</div>
+</div>
+
+<script type="text/javascript">
+$('#loginBoxShow').on('click',function(){
+
+$('#faderBox').fadeIn(200)
+$('#loginFormBox').fadeIn(200)
+
+})
+
+$('#faderBox').on('click',function(){
+$(this).fadeOut(200)
+$('#loginFormBox').fadeOut(200)
+})
+
+$('#saveProfileButton').on('click',function(){
+console.log('clicked')
+})
+
+$('#registrationForm').on('submit',function(e){
+e.preventDefault()
+
+var regForm = $(this)
+var regError = $('#registrationErrorMessage')
+var saveProfileButton = $('#saveProfileButton')
+var href = regForm.attr('action')
+var password = $('#passwordField').val()
+var confirmPassword = $('#confirmPasswordField').val()
+var flag = 0
+
+saveProfileButton.prop('disabled',true)
+
+var hasSpace = $('#usernameField').val().indexOf(' ')>=0;
+if(hasSpace==true){
+regError.html('Username shouldn\'t have spaces.').css('color','red')
+saveProfileButton.prop('disabled',false)
+return 0;
+}
+
+regForm.find('.textField').each(function(){
+var $this = $(this)
+if ($this.val()==''){
+flag+=1
+}
+
+})
+
+if(flag>0){
+
+console.log('You left something blank')
+regError.html('You left something blank').css('color','red')
+saveProfileButton.prop('disabled',false)
+flag=0
+}else{
+
+if(password==confirmPassword){
+
+$.post(href,regForm.serialize()).done(function(data){
+
+if(data=='username'){
+
+regError.html('Username already exists. Pick another one.').css('color','red')
+saveProfileButton.prop('disabled',false)
+}else{
+location.href=data
+}
+
+})
+
+}else{
+
+regError.html('Passwords don\'t match.').css('color','red')
+saveProfileButton.prop('disabled',false)
+}
+
+
+
+}
+
+
+
+})
+
+$('#loginForm').on('submit',function(e){
+e.preventDefault()
+var loginForm = $(this)
+var href = loginForm.attr('action')
+var loginButton = $('#loginButton')
+var loginMessage = $('#loginMessage')
+
+loginButton.prop('disabled',true)
+
+$.post(href,loginForm.serialize()).done(function(data){
+
+if(data=='error'){
+
+loginMessage.html('Wrong username / password.').css('color','red')
+loginButton.prop('disabled',false)
+
+}else if(data=='fatal'){
+loginMessage.html('Not allowed.').css('color','red')
+loginButton.prop('disabled',false)
+}else{
+
+location.href=data
+}
+
+})
+
+
+
+})
+
+/* $('#usernameField').on('keydown',function(e) {
+    if(e.which === 32) 
+        return false;
+}) */
+
+
+$('#usernameField').keypress(function(e){
+       if(e.which === 32) 
+        return false; 
+})
+
+
+
+</script>
+
+
+</div>
+
+
+</div>
+
+{% include 'analytics.html' %}
+
+</body>
+
+</html>

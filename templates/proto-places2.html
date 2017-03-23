@@ -1,0 +1,184 @@
+<?php /* Template Name: Manly Template */ ?>
+{% load static %}
+<html>
+
+<head>
+
+<link href='https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<link rel="icon" type="image/png" href="{% static 'favi.png' %}" />
+<title>DinnerPad</title>
+ 
+<style type="text/css">
+
+#container{
+position:absolute;
+top:0px;
+left:0px;
+width:100%;
+height:100%;
+min-height:500px;
+min-width:320px;
+background-color:#000000;
+font-family:'Open Sans';
+}
+
+/* Page Header */
+
+#pageHeader{
+position:fixed;
+z-index:2;
+border:solid 1px #484848;
+background-color:#484848;
+text-align:center;
+height:3em;
+width:100%;
+
+}
+
+#pageTitle{
+
+font-size:1.6em;
+position:relative;
+top:0.3em;
+color:#FFFFFF;
+}
+
+
+/* Page Content */
+#pageContentBox{
+position:absolute;
+top:3em;
+min-height:100%;
+width:100%;
+border:solid 1px C4D0D0;
+background-color:#F9F9F9;
+padding-bottom:20%;
+font-size:1em;
+}
+
+#pageContentBox{
+font-size:1em;
+padding:10px;
+box-sizing:border-box;
+}
+
+#pageContent{
+text-align:center;
+}
+/* Feedlet */
+.feedlet{
+width:48.5%;
+position:relative;
+border:solid 1px #dcdcdc;
+padding:5px;
+box-sizing:border-box;
+display:inline-block;
+float:left;
+font-size:0px;
+margin:0px 0px 10px 5px;
+background-color:#FFFFFF;
+text-align:center;
+cursor:pointer;
+
+}
+
+.feedletImage{
+
+border:solid 1px #dcdcdc;
+width:100%;
+margin:0 auto;
+position:relative;
+left:-1px;
+}
+
+#topBarSettings{
+float:left;
+position:absolute;
+color:#FFFFFF;
+cursor:pointer;
+top:10px;
+left:10px;
+font-size:2.5em;
+}
+
+#topBarHelp{
+float:right;
+position:absolute;
+color:#FFFFFF;
+cursor:pointer;
+top:10px;
+right:10px;
+font-size:2.5em;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="container">
+
+<div id="pageHeader">
+
+<span id="pageTitle">DinnerPad</span>
+
+<a href="/settings/">
+<div id="topBarSettings">
+<i style="font-size:0.8em;" class="material-icons">&#xE8B8;</i>
+</div>
+</a>
+
+<a href="/about/">
+<div id="topBarHelp">
+<i id="cartIcon" style="font-size:0.8em;"class="material-icons">&#xE8FD;</i>
+</div>
+</a>
+
+</div>
+
+<div id="pageContentBox">
+
+<div id="pageContent">
+
+<div style="padding:5px;">
+<b>Pick a restaurant. ( {{city|title}} )</b>
+</div>
+
+{% for restaurant in restaurants %}
+
+<a href="/places/?restaurant={{restaurant.id}}">
+<div class="feedlet">
+
+
+<img src="{{restaurant.image_thumbnail250.url}}"class="feedletImage" />
+
+
+</div>
+</a>
+{% empty %}
+<p>There aren't any restaurants here yet.</p>
+<p> We might be launching in this city soon so watch this space! </p>
+<p> In the meantime, did you know that with DinnerPad, you can get FREE meals for you
+and your friends?</p> 
+<p><a href="/promo/">Find Out How!</a></p>
+
+
+{% endfor %}
+
+</div>
+
+</div>
+
+
+</div>
+
+{% include 'analytics.html' %}
+
+</body>
+
+</html>

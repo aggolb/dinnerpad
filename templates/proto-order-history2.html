@@ -1,0 +1,331 @@
+<?php /* Template Name: Manly Template */ ?>
+{% load static %}
+<html>
+
+<head>
+
+<link href='https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<link rel="icon" type="image/png" href="{% static 'favi.png' %}" />
+<title>DinnerPad</title>
+ 
+<style type="text/css">
+
+#container{
+position:absolute;
+top:0px;
+left:0px;
+width:100%;
+height:100%;
+min-height:500px;
+min-width:320px;
+background-color:#000000;
+font-family:'Open Sans';
+}
+
+/* Page Header */
+
+#pageHeader{
+position:fixed;
+z-index:2;
+border:solid 1px #484848;
+background-color:#484848;
+text-align:center;
+height:3em;
+width:100%;
+
+}
+
+#pageTitle{
+
+font-size:1.6em;
+position:relative;
+top:0.3em;
+color:#FFFFFF;
+}
+
+
+/* Page Content */
+#pageContentBox{
+position:absolute;
+top:3em;
+min-height:100%;
+width:100%;
+border:solid 1px C4D0D0;
+background-color:#F9F9F9;
+padding-bottom:20%;
+font-size:1em;
+}
+
+#pageContentBox{
+font-size:1em;
+
+box-sizing:border-box;
+}
+
+#topBarBack{
+float:left;
+position:absolute;
+color:#FFFFFF;
+cursor:pointer;
+top:10px;
+left:10px;
+font-size:2.5em;
+}
+
+#faderBox{
+position:fixed;
+top:0px;
+left:0px;
+background-color:#000000;
+opacity:0.75;
+z-index:3;
+width:100%;
+height:100%;
+
+display:none;
+}
+
+.order{
+background-color:#FFFFFF;
+widh:100%;
+border:solid 1px #dcdcdc;
+padding:10px;
+box-sizing:border-box;
+
+}
+
+.reviewBox{
+border:solid 1px #dcdcdc;
+padding:10px;
+box-sizing:border-box;
+background-color:#FFFFFF;
+z-index:4;
+width:20em;
+position:fixed;
+left:50%;
+top:50%;
+margin-top:-9.25em;
+margin-left:-10em;
+min-height:18.5em;
+
+display:none;
+}
+
+.reviewDecriptionField{
+width:100%;
+padding:10px;
+box-sizing:border-box;
+font-family:'Open Sans';
+resize:vertical;
+height:7em;
+font-size:0.9em;
+}
+.postReviewButton{
+width:100%;
+padding:15px;
+color:#FFFFFF;
+border:solid 1px #dcdcdc;
+border-radius:5px;
+background-color:#29991F;
+}
+
+
+.starRatings{
+color:#D8D810;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="container">
+
+<div id="faderBox">
+
+</div>
+
+<div id="pageHeader">
+
+<span id="pageTitle">Your History</span>
+
+<div id="topBarBack" onClick="window.history.back()">
+<i style="font-size:0.8em;" class="material-icons">&#xE317;</i>
+</div>
+
+</div>
+
+<div id="pageContentBox">
+
+<div id="pageContent">
+
+<div style="padding:10px;">
+<b>ORDER HISTORY</b>
+</div>
+
+{% for order in orders %}
+
+<div class="order">
+<div style="font-size:1.3em">
+<b>{{order.restaurant.name}}</b> - ({{order.date|date:'d M Y'}})
+</div>
+
+<p><b>You Ordered</b></p>
+{% for item in order.order_items.all %}
+<div>
+<p>{{item.name}} x {{item.quantity}} = K {{item.price|floatformat:2}}</p>
+</div>
+{% endfor %}
+<br>
+<div>
+<b>Total Spent: </b>K {{order.total|floatformat:2}}
+</div>
+<br>
+<div style="border-top:solid 1px #dcdcdc;padding-top:10px;">
+<b>Your Review</b><br>
+
+{% if order.review %}
+
+<div style="color:#D8D810;">
+
+{% if order.review.rating <= 1 %}
+<i class="material-icons">star</i> 
+<i class="material-icons">star_border</i>
+<i class="material-icons">star_border</i>
+<i class="material-icons">star_border</i>
+<i class="material-icons">star_border</i>
+{% elif order.review.rating <= 2 %}
+<i class="material-icons">star</i> 
+<i class="material-icons">star</i>
+<i class="material-icons">star_border</i>
+<i class="material-icons">star_border</i>
+<i class="material-icons">star_border</i>
+{% elif order.review.rating <= 3 %}
+<i class="material-icons">star</i> 
+<i class="material-icons">star</i>
+<i class="material-icons">star</i>
+<i class="material-icons">star_border</i>
+<i class="material-icons">star_border</i>
+{% elif order.review.rating <= 4 %}
+<i class="material-icons">star</i> 
+<i class="material-icons">star</i>
+<i class="material-icons">star</i>
+<i class="material-icons">star</i>
+<i class="material-icons">star_border</i>
+{% elif order.review.rating <= 5 %}
+<i class="material-icons">star</i> 
+<i class="material-icons">star</i>
+<i class="material-icons">star</i>
+<i class="material-icons">star</i>
+<i class="material-icons">star</i>
+{% endif %}
+
+
+</div>
+
+<i>"{{order.review.description}}"</i>
+{% else %}
+<div>
+<p>
+You haven't submitted a review for this order yet.<br>
+<br>
+<a class="writeReviewButton" style="color:#000000"href="#">Write a review now.</a>
+</p>
+
+</div>
+{% endif %}
+
+</div>
+
+<div class="reviewBox">
+<h3>How was your meal?</h3>
+
+<form action="/order/add-review/" method="post">{% csrf_token %}
+<p>
+<textarea class="reviewDecriptionField" name="description" placeholder="My Review..."></textarea>
+</p>
+
+<div class="starRatings">
+<i star_value="1" class="material-icons">star</i>
+<i star_value="2" class="material-icons">star_border</i>
+<i star_value="3" class="material-icons">star_border</i>
+<i star_value="4" class="material-icons">star_border</i>
+<i star_value="5" class="material-icons">star_border</i>
+</div>
+
+<p>
+<input class="starValueField" type="hidden" value="1" name="rating"/>
+<input type="hidden" value="{{order.id}}" name="orderId"/>
+</p>
+
+<p>
+<input class="postReviewButton"type="submit" name="submit" value="POST REVIEW"/>
+</p>
+</form>
+
+</div>
+
+
+</div>
+
+<br>
+{% empty %}
+
+<div style="padding:10px;">
+You haven't made any orders yet.
+</div>
+{% endfor %}
+</div>
+
+<script type="text/javascript">
+
+$('.starRatings').on('click','.material-icons',function(){
+
+var $this = $(this)
+var star_value = $this.attr('star_value')
+var starValueField = $this.parent().parent().find('.starValueField')
+
+$this.parent().children().html('star_border')
+$this.html('star')
+$this.prevAll().html('star')
+
+starValueField.val(star_value)
+
+})
+
+$('.writeReviewButton').on('click',function(){
+var $this = $(this)
+var reviewBox = $this.parent().parent().parent().parent().find('.reviewBox')
+
+$('#faderBox').fadeIn(200)
+reviewBox.fadeIn(200)
+
+})
+
+$('#faderBox').on('click',function(){
+$('.reviewBox').fadeOut(200)
+$(this).fadeOut(200)
+})
+
+</script>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+{% include 'analytics.html' %}
+
+</body>
+
+</html>

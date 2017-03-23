@@ -1,0 +1,656 @@
+<?php /* Template Name: Manly Template */ ?>
+{% load static %}
+<html>
+
+<head>
+
+<link href='https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<link rel="icon" type="image/png" href="{% static 'favi.png' %}" />
+<title>DinnerPad</title>
+
+
+<!-- <script src="{% static 'jquery-1.11.3.js' %}"></script> -->
+
+<style type="text/css">
+
+#container{
+position:absolute;
+top:0px;
+left:0px;
+width:100%;
+height:100%;
+min-height:500px;
+min-width:320px;
+background-color:#000000;
+font-family:'Open Sans';
+
+opacity:0;
+}
+
+/* Page Header */
+
+#pageHeader{
+position:fixed;
+z-index:2;
+border:solid 1px #484848;
+background-color:#484848;
+text-align:center;
+height:3em;
+width:100%;
+
+}
+
+#pageTitle{
+
+font-size:1.6em;
+position:relative;
+top:0.3em;
+color:#FFFFFF;
+}
+
+#newProjectButton{
+color:#FFFFFF;
+position:absolute;
+left:0.5em;
+top:0.25em;
+}
+
+#searchButton{
+color:#FFFFFF;
+position:absolute;
+right:0.5em;
+top:0.25em;
+}
+
+
+
+
+/* Page Content */
+#pageContentBox{
+position:absolute;
+top:3em;
+min-height:100%;
+width:100%;
+border:solid 1px C4D0D0;
+background-color:#F9F9F9;
+padding-bottom:20%;
+font-size:1em;
+}
+
+#pageContentBox{
+font-size:1em;
+}
+
+/* Info */
+
+#restaurantInfo{
+background-color:#FFFFFF;
+border:solid 1px #dcdcdc;
+position:relative;
+padding:10px;
+box-sizing:border-box;
+z-index:1;
+font-size:0.85em;
+width:100%;
+}
+
+#restaurantPic{
+background-color:gray;
+width:10em;
+height:10em;
+border:solid 1px #dcdcdc;
+
+}
+
+#restaurantMeta{
+position:absolute;
+padding-left:10.3em;
+padding-top:10px;
+top:0px;
+}
+
+#starRatings{
+color:#D8D810;
+
+}
+
+/* Menu */
+
+.categoryTitle{
+width:100%;
+padding:10px;
+border:solid 1px #dcdcdc;
+background-color:#CFD0D4;
+box-sizing:border-box;
+}
+
+.feedlet{
+border-bottom:solid 1px #dcdcdc;
+background-color:#FFFFFF;
+padding:10px;
+padding-bottom:20px;
+width:100%;
+position:relative;
+box-sizing:border-box;
+margin:0px 0px 0px 0px;
+height:7.5em;
+
+}
+
+.feedletTitle{
+padding-right:6em;
+}
+
+.feedletDescription{
+color:gray;
+position:absolute;
+font-size:0.8em;
+padding-right:5em;
+}
+
+.feedletPrice{
+position:absolute;
+
+top:10px;
+right:10px;
+}
+
+.feedletAddButton{
+border:solid 1px #dcdcdc;
+border-radius:10px;
+padding:10px;
+box-sizing:border-box;
+position:absolute;
+right:10px;
+bottom:10px;
+color:#FFFFFF;
+background-color:#29991F;
+}
+
+.menuOptions{
+position:fixed;
+background-color:#FFFFFF;
+border:solid 1px #dcdcdc;
+padding:10px;
+box-sizing:border-box;
+width:20em;
+left:50%;
+margin-left:-10em;
+
+top:25%;
+margin-top:-7em;
+z-index:4;
+
+display:none;
+}
+
+.menuQuantityAdd{
+
+font-size:1.5em;
+width:2em;
+float:left;
+
+text-align:center;
+color:gray;
+
+}
+
+.menuQuantityAdd i{
+font-size:1.5em;
+}
+
+.menuQuantitySubtract i{
+font-size:1.5em;
+}
+.menuQuantitySubtract{
+font-size:1.5em;
+width:2em;
+float:left;
+
+text-align:center;
+color:gray;
+
+}
+
+.menuQuantityField{
+width:5em;
+padding:0.5em;
+text-align:center;
+font-size:1em;
+float:left;
+}
+
+.extrasCheckBoxOption{
+float:left;
+}
+
+
+.addToCartButton{
+width:100%;
+color:#FFFFFF;
+border:solid 1px #dcdcdc;
+border-radius:3px;
+background-color:#29991F;
+font-size:1em;
+padding:1em;
+}
+
+#faderBox{
+position:fixed;
+top:0px;
+left:0px;
+background-color:#000000;
+opacity:0.75;
+z-index:3;
+width:100%;
+height:100%;
+display:none;
+}
+
+#topBarCart{
+float:right;
+position:absolute;
+color:#FFFFFF;
+cursor:pointer;
+top:10px;
+right:10px;
+font-size:2.5em;
+}
+
+#topBarSettings{
+float:left;
+position:absolute;
+color:#FFFFFF;
+cursor:pointer;
+top:10px;
+left:10px;
+font-size:2.5em;
+}
+
+</style>
+
+</head>
+
+<body>
+<div id="faderBox">
+
+</div>
+<div id="container">
+
+
+
+
+<div id="pageHeader">
+
+<span id="pageTitle">{{restaurant.name}}</span>
+
+<a href="/settings/">
+<div id="topBarSettings">
+<i style="font-size:0.8em;" class="material-icons">&#xE8B8;</i>
+</div>
+</a>
+
+<a href="/cart/?restaurant={{restaurant.id}}">
+<div id="topBarCart">
+<i id="cartIcon" style="font-size:0.8em;"class="material-icons">&#xE8CC;</i>
+</div>
+</a>
+
+</div>
+
+<div id="pageContentBox">
+
+<div id="pageContent">
+
+ <br>
+<div style=""id="restaurantInfo">
+
+<img src="{{restaurant.image_thumbnail250.url}}"id="restaurantPic"/>
+
+
+
+<div id="restaurantMeta">
+<b style="font-size:1.5em;">{{restaurant.name}}</b>
+<br>
+
+<div id="starRatings">
+
+{% if restaurant.rating <= 1 %}
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE83A;</i>
+<i class="material-icons">&#xE83A;</i>
+<i class="material-icons">&#xE83A;</i>
+<i class="material-icons">&#xE83A;</i>
+{% elif restaurant.rating <= 2 %}
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE83A;</i>
+<i class="material-icons">&#xE83A;</i>
+<i class="material-icons">&#xE83A;</i>
+{% elif restaurant.rating <= 3 %}
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE83A;</i>
+<i class="material-icons">&#xE83A;</i>
+{% elif restaurant.rating <= 4 %}
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE83A;</i>
+{% elif restaurant.rating <= 5 %}
+<i class="material-icons">&#xE838;</i> 
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE838;</i>
+{% endif %}
+
+</div>
+
+<div style="font-size:0.8em;">
+<b>Minimum Order: </b>K {{restaurant.minimum_order_amount|floatformat:2}}<br>
+<b>Delivery Fee: </b>K {{restaurant.delivery_fee|floatformat:2}} {% if restaurant.delivery_fee == 0 %}( FREE ){% endif %}
+</div>
+<br>
+
+<div id="openingTimes" style="font-size:0.8em;position:relative;top:-10px;">
+<div>
+<b>Weekday Opening Time: </b>{{restaurant.weekday_open}} - {{restaurant.weekday_close}}
+</div>
+<div>
+<b>Saturday Opening Time: </b>{{restaurant.saturday_open}} - {{restaurant.saturday_close}}
+</div>
+<div>
+<b>Sunday Opening Time: </b>{{restaurant.sunday_open}} - {{restaurant.sunday_close}}
+</div>
+
+</div>
+
+</div>
+
+<p><b>Latest Review</b> - ( <a href="/reviews/?restaurant={{restaurant.id}}">See All Reviews</a> )</p>
+{% if latest_review %}
+<p><i>"{{latest_review.description}}" - {{latest_review.user.profile.firstName}}</i></p>
+{% else %}
+<p>There aren't any reviews yet.</p>
+{% endif %}
+</div>
+<br>
+
+<div class="categoryTitle">
+STARTERS & SIDES
+</div>
+
+{% for item in menu %}
+
+{% if item.category == 'STA' %}
+
+{% include 'menu_item.html' %}
+
+{% endif %}
+
+{% endfor %}
+<br>
+
+<div class="categoryTitle">
+MAIN
+</div>
+{% for item in menu %}
+
+{% if item.category == 'MAI' %}
+
+{% include 'menu_item.html' %}
+
+{% endif %}
+
+{% endfor %}
+<br>
+
+<div class="categoryTitle">
+DEALS
+</div>
+{% for item in menu %}
+
+{% if item.category == 'DEA' %}
+
+{% include 'menu_item.html' %}
+
+{% endif %}
+
+{% endfor %}
+<br>
+
+<div class="categoryTitle">
+DRINKS
+</div>
+{% for item in menu %}
+
+{% if item.category == 'DRI' %}
+
+{% include 'menu_item.html' %}
+
+{% endif %}
+
+{% endfor %}
+
+<br>
+
+<div class="categoryTitle">
+DESSERT
+</div>
+{% for item in menu %}
+
+{% if item.category == 'DES' %}
+
+{% include 'menu_item.html' %}
+
+{% endif %}
+
+{% endfor %}
+<br>
+
+
+<script type="text/javascript">
+
+$('.feedletAddButton').on('click',function(){
+
+var $this = $(this)
+var menuOptions = $this.siblings('.menuOptions')
+var faderBox = $('#faderBox')
+
+faderBox.fadeIn(0.2)
+menuOptions.fadeIn(0.2)
+
+
+})
+
+$('#faderBox').on('click',function(){
+$('.menuOptions').fadeOut(0.2)
+$(this).fadeOut(0.2)
+})
+
+$('.menuQuantityAdd').on('click',function(){
+var $this = $(this)
+var quantity = $this.siblings('.menuQuantityField')
+var totalQuantityQuote = $this.parent().parent().find('.totalQuantityQuote')
+var itemPrice = $this.parent().parent().find('.itemPriceValue')
+var totalPriceQuote = $this.parent().parent().find('.totalPriceQuote')
+var totalItemPriceField = $this.parent().parent().find('.totalItemPriceField')
+
+newQuantity=parseInt(quantity.val())+1
+totalQuantityQuote.html(newQuantity)
+
+quantity.val(newQuantity)
+var newPrice = parseFloat(itemPrice.html())*newQuantity
+totalPriceQuote.html(newPrice.toFixed(2))
+totalItemPriceField.val(newPrice.toFixed(2))
+})
+
+$('.menuQuantitySubtract').on('click',function(){
+var $this = $(this)
+var quantity = $this.siblings('.menuQuantityField')
+var itemPrice = $this.parent().parent().find('.itemPriceValue')
+var totalQuantityQuote = $this.parent().parent().find('.totalQuantityQuote')
+var totalPriceQuote = $this.parent().parent().find('.totalPriceQuote')
+var totalItemPriceField = $this.parent().parent().find('.totalItemPriceField')
+
+newQuantity=parseInt(quantity.val())-1
+
+
+if(newQuantity<1){
+return 0;
+}else{
+
+quantity.val(newQuantity)
+totalQuantityQuote.html(newQuantity)
+var newPrice = parseFloat(itemPrice.html())*newQuantity
+totalPriceQuote.html(newPrice.toFixed(2))
+totalItemPriceField.val(newPrice)
+}
+
+})
+
+$('.menuOptionsForm').on('submit',function(e){
+
+var $this = $(this)
+var href = $this.attr('action')
+var flag=0
+
+e.preventDefault()
+
+$this.find('.propertySelect').each(function(){
+var $thisSelect = $(this)
+var option = $thisSelect.find('option:selected')
+var price = option.attr('price')
+
+if(isNaN(price)){
+flag=flag+1
+}
+
+})
+
+if(flag>0){
+$this.find('.optionMessage').show()
+return 0
+}else{
+
+$.post(href,$this.serialize()).done(function(data){
+if(data=='success'){
+location.reload()
+}else if(data=='failure'){
+
+}
+
+}).fail(function(){
+location.href='/register/?next=/places/?restaurant={{restaurant.id}}'
+})
+
+}
+
+})
+
+$('.propertySelect').on('change',function(){
+
+//Whenever a select is changed, the value of price is extracted,total is calculated
+//and itemPriceValue is changed
+var $this = $(this)
+var option = $this.find('option:selected')
+var price = option.attr('price')
+var flag=0
+
+var total=0
+
+
+$this.parent().parent().find('.propertySelect').each(function(){
+var $this = $(this)
+var option = $this.find('option:selected')
+var price = option.attr('price')
+
+if(isNaN(price)){
+price=0
+flag=flag+1
+}
+total=total+parseFloat(price)
+
+
+})
+
+if(flag>0){
+$this.parent().parent().find('.extraCheckbox').attr("disabled",true)
+$this.parent().parent().find('.extraCheckbox').attr("checked",false)
+}else{
+$this.parent().parent().find('.extraCheckbox').attr("disabled",false)
+}
+
+$this.parent().parent().find('.itemPriceValue').html(total)
+
+//Click forward and back to calculate the value with quantity
+var minus = $this.parent().parent().find('.menuQuantitySubtract')
+var plus = $this.parent().parent().find('.menuQuantityAdd')
+
+plus.click()
+minus.click()
+})
+
+
+$('.extraCheckbox').on('click',function(){
+var $this = $(this)
+var price = parseFloat($this.attr('extra_price'))
+var itemPriceValue = $this.parent().parent().find('.itemPriceValue')
+var total = parseFloat(itemPriceValue.html())
+console.log(price)
+
+if($this.is(':checked')){
+console.log('Checked')
+total=total+price
+itemPriceValue.html(total)
+}else{
+total=total-price
+itemPriceValue.html(total)
+}
+
+var minus = $this.parent().parent().find('.menuQuantitySubtract')
+var plus = $this.parent().parent().find('.menuQuantityAdd')
+
+plus.click()
+minus.click()
+
+})
+
+</script>
+
+</div>
+
+</div>
+
+
+
+
+
+
+</div>
+
+<script type="text/javascript">
+
+$(document).on('ready',function(){
+
+setTimeout(function () {
+$('#container').css('opacity','1')
+}, 200);
+	
+
+})
+
+</script>
+
+{% include 'analytics.html' %}
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+{% load static %}
+<html>
+
+<head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="{% static 'favi.png' %}" />
+<title>DinnerPad</title>
+
+<style type="text/css">
+
+#frontBox{
+
+width:100%;
+position:absolute;
+top:0px;
+left:0px;
+overflow:hidden;
+z-index:1;
+}
+
+#frontBox img{
+width:120%;
+min-width:15em;
+position:fixed;
+}
+
+#siteInfo{
+position:absolute;
+text-align:center;
+font-family:'Arial';
+width:100%;
+color:#FFFFFF;
+font-size:1em;
+height:20em;
+
+top:50%;
+left:0px;
+margin-top:-15em;
+z-index:3;
+padding:10px;
+box-sizing:border-box;
+}
+
+#faderBox{
+background-color:#000000;
+opacity:0.35;
+z-index:2;
+position:fixed;
+width:100%;
+height:100%;
+top:0px;
+left:0px;
+}
+
+#findFoodButton{
+width:100%;
+padding:15px;
+color:#FFFFFF;
+border:solid 1px #26811E;
+border-radius:3px;
+background-color:#29991F;
+position:relative;
+top:20px;
+}
+
+#townDropdown{
+width:100%;
+padding:5px;
+font-size:1.75em;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<div id="faderBox">
+
+</div>
+
+
+<div id="frontBox">
+<img src="{% static 'food_bank3.jpg' %}"/>
+</div>
+
+
+<div id="siteInfo">
+<br>
+<div style="font-size:3em;"><i style="font-size:0.9em;position:relative;top:4px;"class="material-icons">&#xE561;</i>DinnerPad</div><br>
+
+<div style="font-size:1.1em;">
+Your favorite Zambian takeaway delivered right to your door!<br>
+</div><br><br>
+<div style="font-size:1.5em;">
+Which city are you in?
+</div>
+<br>
+<form action="/places/" method="get">
+
+<select id="townDropdown" name="town">
+<option value="kabwe">Kabwe</option>
+<option value="kitwe">Kitwe</option>
+<option value="lusaka">Lusaka</option>
+<option value="ndola">Ndola</option>
+</select>
+
+<input id="findFoodButton" type="submit" value="FIND FOOD"/>
+
+</form>
+
+
+</div>
+
+
+{% include 'analytics.html' %}
+</body>
+
+
+</html>
+

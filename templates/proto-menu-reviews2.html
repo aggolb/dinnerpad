@@ -1,0 +1,213 @@
+<?php /* Template Name: Manly Template */ ?>
+{% load static %}
+<html>
+
+<head>
+
+<link href='https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<link rel="icon" type="image/png" href="{% static 'favi.png' %}" />
+<title>DinnerPad</title>
+ 
+<style type="text/css">
+
+#container{
+position:absolute;
+top:0px;
+left:0px;
+width:100%;
+height:100%;
+min-height:500px;
+min-width:320px;
+background-color:#000000;
+font-family:'Open Sans';
+
+opacity:0;
+}
+
+/* Page Header */
+
+#pageHeader{
+position:fixed;
+z-index:2;
+border:solid 1px #484848;
+background-color:#484848;
+text-align:center;
+height:3em;
+width:100%;
+
+}
+
+#pageTitle{
+
+font-size:1.6em;
+position:relative;
+top:0.3em;
+color:#FFFFFF;
+}
+
+
+/* Page Content */
+#pageContentBox{
+position:absolute;
+top:3em;
+min-height:100%;
+width:100%;
+border:solid 1px C4D0D0;
+background-color:#F9F9F9;
+padding-bottom:20%;
+font-size:1em;
+}
+
+#pageContentBox{
+font-size:1em;
+padding:10px;
+box-sizing:border-box;
+}
+
+/* Reviews */
+
+.starRatings{
+color:#D8D810;
+
+}
+.review{
+background-color:#FFFFFF;
+border:solid 1px #dcdcdc;
+padding:10px;
+box-sizing:border-box;
+width:100%;
+margin: 0px 0px 10px 0px;
+font-size:0.9em;
+}
+
+#topBarBack{
+float:left;
+position:absolute;
+color:#FFFFFF;
+cursor:pointer;
+top:10px;
+left:10px;
+font-size:2.5em;
+}
+
+
+
+</style>
+
+</head>
+
+<body>
+
+<div id="container">
+
+<div id="pageHeader">
+
+<span id="pageTitle">Reviews</span>
+
+
+<div id="topBarBack" onClick="window.history.back()">
+<i style="font-size:0.8em;" class="material-icons">&#xE317;</i>
+
+</div>
+
+
+</div>
+
+<div id="pageContentBox">
+
+<div id="pageContent">
+
+
+<div style="padding-bottom:10px;">
+<b>REVIEWS FOR {{restaurant.name|upper}}</b> ( {{restaurant.reviews.all.count}} reviews )
+</div>
+
+
+{% for review in reviews %}
+<div class="review">
+
+<div>
+<b>{{review.user.profile.firstName}} - ( {{review.date|date:"d/m/Y"}} )</b>
+</div>
+
+<div class="starRatings">
+
+{% if restaurant.rating <= 1 %}
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE83A;</i>
+<i class="material-icons">&#xE83A;</i>
+<i class="material-icons">&#xE83A;</i>
+<i class="material-icons">&#xE83A;</i>
+{% elif restaurant.rating <= 2 %}
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE83A;</i>
+<i class="material-icons">&#xE83A;</i>
+<i class="material-icons">&#xE83A;</i>
+{% elif restaurant.rating <= 3 %}
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE83A;</i>
+<i class="material-icons">&#xE83A;</i>
+{% elif restaurant.rating <= 4 %}
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE83A;</i>
+{% elif restaurant.rating <= 5 %}
+<i class="material-icons">&#xE838;</i> 
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE838;</i>
+<i class="material-icons">&#xE838;</i>
+{% endif %}
+
+</div>
+
+<div>
+<i>"{{review.description}}"</i>
+</div>
+
+</div>
+
+{% empty %}
+<p>No Reviews.</p>
+{% endfor %}
+
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+setTimeout(function () {
+$('#container').css('opacity','1')
+}, 200);
+	
+})
+
+</script>
+
+
+{% include 'analytics.html' %}
+</body>
+
+</html>

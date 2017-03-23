@@ -1,0 +1,182 @@
+{% load tz %}
+{% load static %}
+<html>
+
+<head>
+
+<link href='https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<link rel="icon" type="image/png" href="{% static 'favi.png' %}" />
+<title>DinnerPad</title>
+ 
+<style type="text/css">
+
+#container{
+position:absolute;
+top:0px;
+left:0px;
+width:100%;
+height:100%;
+min-height:500px;
+min-width:320px;
+background-color:#000000;
+font-family:'Open Sans';
+}
+
+/* Page Header */
+
+#pageHeader{
+position:fixed;
+z-index:2;
+border:solid 1px #484848;
+background-color:#484848;
+text-align:center;
+height:3em;
+width:100%;
+
+}
+
+#pageTitle{
+
+font-size:1.6em;
+position:relative;
+top:0.4em;
+color:#FFFFFF;
+}
+
+#topBarHelp{
+float:right;
+position:absolute;
+color:#FFFFFF;
+cursor:pointer;
+top:10px;
+right:10px;
+font-size:2.5em;
+}
+
+/* Page Content */
+#pageContentBox{
+position:absolute;
+top:3em;
+min-height:100%;
+width:100%;
+border:solid 1px C4D0D0;
+background-color:#F9F9F9;
+padding-bottom:20%;
+font-size:1em;
+}
+
+#pageContentBox{
+font-size:1em;
+box-sizing:border-box;
+}
+
+#topBarBack{
+float:left;
+position:absolute;
+color:#FFFFFF;
+cursor:pointer;
+top:10px;
+left:10px;
+font-size:2.5em;
+}
+
+/* Feedlet */
+.feedlet{
+border-bottom:solid 1px #dcdcdc;
+background-color:#FFFFFF;
+padding:10px;
+padding-bottom:20px;
+width:100%;
+position:relative;
+box-sizing:border-box;
+margin:0px 0px 0px 0px;
+
+
+
+}
+
+
+
+</style>
+
+</head>
+
+<body>
+
+<div id="container">
+
+<div id="pageHeader">
+
+<a href="/about/">
+<div id="topBarHelp">
+<i id="cartIcon" style="font-size:0.8em;"class="material-icons">&#xE8FD;</i>
+</div>
+</a>
+
+<span id="pageTitle">DinnerPad</span>
+
+<div id="topBarBack" onClick="window.history.back()">
+<i style="font-size:0.8em;" class="material-icons">&#xE317;</i>
+</div>
+
+</div>
+
+<div id="pageContentBox">
+
+<div id="pageContent">
+<div style="padding:10px;">
+<b>PROMOTION</b>
+</div>
+<div class="feedlet">
+<h3>Interested in FREE meals for you and your friends?</h3>
+
+<p>Calling all Zambian Foodies!</p>
+<p>We're making it easy for you to share some DinnerPad love <i style="color:red;position:relative;top:5px;"class="material-icons">favorite</i> with all your
+friends, family, collegues and randoms on the street.</p>
+<p><b>How does it work?</b> <br>Easy! Just invite your friends to sign up to DinnerPad using your special invite link below and anytime someone you sent to us makes their first order, BOTH you and your friend get
+a free DinnerPad credit.</p>
+<p>Once you have 5 credits, you get a FREE meal worth up to K60 from any local restaurant on our site to show our appreciation.</p>
+<p>If you keep inviting enough people, You and your friends could end up eating with us FREE for life!</p> 
+
+<p><b>NOTE:</b> This only applies to new people who are invited. If you invite someone already on DinnerPad, it won't work.</p>
+<p><b>What if you're not yet launched in my city?</b></p>
+<p>We've got you covered! You can still invite people on. So once we launch in your city and they all make their first orders, you can feast for FREE!</p>
+</div>
+
+<div class="feedlet">
+
+<p><b>YOU CURRENTLY HAVE {% if loggedUser %}{{loggedUser.profile.referral_points}}{% else %}0{% endif %} CREDITS.</b></p>
+
+{% if loggedUser %}
+<p>Everytime you reach 5 credits, you can get a <b>FREE</b> meal worth up to K60.</p>
+
+<p>Your special invite link is<br> <a href="http://www.dinnerpad.com/register/?ref={{loggedUser.username}}">http://www.dinnerpad.com/register/?ref={{loggedUser.username}}</a></p>
+<p>Copy and share it through social media ( Facebook, Instagram, WhatsApp, Twitter etc)</p>
+
+{% else %}
+<p>Looks like you're not registered. To get your special link, you have to first <a href="/register/?next=/promo/">Sign Up</a>.</p>
+
+{% endif %}
+
+</div>
+
+
+
+
+</div>
+
+</div>
+
+
+</div>
+
+{% include 'analytics.html' %}
+
+</body>
+
+</html>

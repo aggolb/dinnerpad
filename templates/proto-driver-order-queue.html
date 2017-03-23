@@ -1,0 +1,365 @@
+<?php /* Template Name: Manly Template */ ?>
+{% load static %}
+{% load tz %}
+<html>
+
+<head>
+
+<link href='https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<link rel="icon" type="image/png" href="{% static 'favi.png' %}" />
+<title>DinnerPad</title>
+ 
+<style type="text/css">
+
+#container{
+position:absolute;
+top:0px;
+left:0px;
+width:100%;
+height:100%;
+min-height:500px;
+min-width:320px;
+background-color:#000000;
+font-family:'Open Sans';
+}
+
+/* Page Header */
+
+#pageHeader{
+position:fixed;
+z-index:2;
+border:solid 1px #484848;
+background-color:#484848;
+text-align:center;
+height:3em;
+width:100%;
+
+}
+
+#pageTitle{
+
+font-size:1.6em;
+position:relative;
+top:0.4em;
+color:#FFFFFF;
+}
+
+
+
+/* Page Content */
+#pageContentBox{
+position:absolute;
+top:3em;
+min-height:100%;
+width:100%;
+border:solid 1px C4D0D0;
+background-color:#F9F9F9;
+padding-bottom:20%;
+font-size:1em;
+}
+
+#pageContentBox{
+font-size:1em;
+padding:10px;
+box-sizing:border-box;
+}
+
+
+.feedlet{
+background-color:#FFFFFF;
+border:solid 1px #dcdcdc;
+padding:10px;
+box-sizing:border-box;
+width:100%;
+margin:5px 0px 0px 0px;
+position:relative;
+}
+
+.feedletSummary{
+cursor:pointer;
+}
+
+#topBarBack{
+float:left;
+position:absolute;
+color:#FFFFFF;
+cursor:pointer;
+top:10px;
+left:10px;
+font-size:2.5em;
+}
+
+#orderFeed{
+width:100%;
+}
+.orderPopUp{
+background-color:#FFFFFF;
+border:solid 1px #dcdcdc;
+padding:10px;
+box-sizing:border-box;
+width:22em;
+min-height:20em;
+position:fixed;
+top:40%;
+margin-top:-15em;
+left:50%;
+margin-left:-11em;
+z-index:4;
+display:none;
+font-size:0.9em;
+
+}
+
+#orderPopUp{
+background-color:#FFFFFF;
+border:solid 1px #dcdcdc;
+padding:10px;
+box-sizing:border-box;
+width:22em;
+min-height:20em;
+position:absolute;
+top:30%;
+margin-top:-15em;
+left:50%;
+margin-left:-11em;
+z-index:4;
+display:none;
+font-size:0.9em;
+}
+
+.acceptOrderButton{
+
+padding:10px;
+font-size:1em;
+border:solid 1px #dcdcdc;
+border-radius:3px;
+box-sizing:border-box;
+text-align:center;
+color:#FFFFFF;
+background-color:#29991F;
+cursor:pointer;
+}
+
+.amountAndButton{
+font-size:1.1em;
+}
+
+#faderBox{
+background-color:#000000;
+z-index:3;
+opacity:0.75;
+position:fixed;
+width:100%;
+height:100%;
+display:none;
+}
+
+
+#topBarHelp{
+float:right;
+position:absolute;
+color:#FFFFFF;
+cursor:pointer;
+top:10px;
+right:10px;
+font-size:2.5em;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="container">
+
+<div id="faderBox">
+
+</div>
+
+<div id="pageHeader">
+
+<a href="/driver/order-list/">
+<div id="topBarHelp">
+<i id="cartIcon" style="font-size:0.8em;"class="material-icons">&#xE896;</i>
+</div>
+</a>
+
+<span id="pageTitle">Order Queue</span>
+
+<div id="topBarBack" onClick="window.history.back()">
+<i style="font-size:0.8em;" class="material-icons">keyboard_backspace</i>
+</div>
+
+
+
+
+</div>
+
+<div id="pageContentBox">
+
+<div id="pageContent">
+
+<div id="orderFeed">
+
+{% for order in orders %}
+<div class="feedlet">
+<div class="feedletSummary">
+
+<div>
+<b>Order #{{order.id}}</b>
+</div>
+<div>
+<b>{{order.restaurant.name}}</b>
+</div>
+{% timezone "Africa/Lusaka" %}
+<div>
+{{order.date}}
+</div>
+{% endtimezone %}
+
+
+</div>
+
+
+<div class="orderPopUp">
+
+<div>
+<b>Order #{{order.id}}<br>
+<span style="font-size:1.1em;">{{order.restaurant.name}}</span></b>
+</div>
+
+{% timezone "Africa/Lusaka" %}
+<div>
+<b>Date: </b>{{order.date}}
+</div>
+{% endtimezone %}
+<br>
+<div>
+<b>Order Details </b><br>
+
+{% for item in order.order_items.all %}
+<div style="padding-bottom:0px;">
+{{item.name}} X {{item.quantity}}<br>
+
+{% for option in item.order_options.all %}
+<span style="color:gray;font-size:0.9em">
+<b>{{option.code}} :</b> {{option.description}}
+</span>
+{% endfor %}
+</div>
+
+<span style="color:gray;font-size:0.9em;"><b>Extras:</b></span>
+
+{% for extra in item.order_extras.all %}
+<span style="color:gray;font-size:0.9em;padding-bottom:20px">
+ {{extra.code}}, 
+</span>
+{% empty %}
+<span style="color:gray;font-size:0.9em;padding-bottom:20px">
+None.
+</span>
+{% endfor %}<br><br>
+
+
+{% endfor %}
+
+
+</div><br>
+
+<div>
+<b>Delivery Address</b><br>
+{{order.user.profile.firstName}} {{order.user.profile.lastName}}<br>
+{{order.user.profile.phone}}<br>
+{{order.user.profile.addressl1}}<br>
+{{order.user.profile.addressl2}}<br>
+{{order.user.profile.get_city_display}}<br>
+</div><br>
+
+{% if order.gps == True %}
+<div>
+<b>GPS: </b><a latitude="{{order.latitude}}" longitude="{{order.longitude}}"style="cursor:pointer;color:#10A5A5" class="openMapsButton">Open in Maps</a>
+</div>
+{% else %}
+<div><b>GPS:</b> No GPS</div>
+{% endif %}
+<br>
+
+<div class="amountAndButton">
+<div>
+<b>Total Order Amount: </b> K {{order.total|floatformat:2}}
+</div><br>
+
+
+<a style="text-decoration:none;"href="/order/driver-accept-order/?order={{order.id}}">
+<div class="acceptOrderButton">
+ACCEPT ORDER
+</div>
+</a>
+
+</div>
+
+</div>
+
+
+</div>
+{% endfor %}
+
+
+<div id="orderPopUp">
+
+</div>
+
+</div>
+
+
+
+</div>
+
+<script type="text/javascript">
+
+$('.feedletSummary').on('click',function(){
+var $this = $(this)
+var orderPopUp = $('#orderPopUp')
+$('#faderBox').fadeIn(200)
+orderPopUp.html($this.siblings('.orderPopUp').html())
+orderPopUp.fadeIn(200)
+})
+
+$('#faderBox').on('click',function(){
+
+$('#orderPopUp').fadeOut(200)
+$(this).fadeOut(200)
+})
+
+$('#orderFeed').on('click','.openMapsButton',function(){
+	
+	var $this = $(this)
+	var latitude=$this.attr('latitude')
+	var longitude=$this.attr('longitude')
+    // If it's an iPhone..
+    if( (navigator.platform.indexOf("iPhone") != -1) 
+        || (navigator.platform.indexOf("iPod") != -1)
+        || (navigator.platform.indexOf("iPad") != -1)){
+         window.open("maps://maps.google.com/maps?daddr="+latitude+","+longitude+"&amp;ll=")
+    }else{
+         window.open("https://maps.google.com/maps?daddr="+latitude+","+longitude+"&amp;ll=","_blank")
+		 }
+})
+
+</script>
+
+</div>
+
+
+</div>
+
+{% include 'analytics.html' %}
+
+</body>
+
+</html>

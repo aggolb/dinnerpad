@@ -1,0 +1,174 @@
+<?php /* Template Name: Manly Template */ ?>
+{% load static %}
+<html>
+
+<head>
+
+<link href='https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<link rel="icon" type="image/png" href="{% static 'favi.png' %}" />
+<title>DinnerPad</title>
+ 
+<style type="text/css">
+
+#container{
+position:absolute;
+top:0px;
+left:0px;
+width:100%;
+height:100%;
+min-height:500px;
+min-width:320px;
+background-color:#000000;
+font-family:'Open Sans';
+}
+
+/* Page Header */
+
+#pageHeader{
+position:fixed;
+z-index:2;
+border:solid 1px #484848;
+background-color:#484848;
+text-align:center;
+height:3em;
+width:100%;
+
+}
+
+#pageTitle{
+
+font-size:1.6em;
+position:relative;
+top:0.3em;
+color:#FFFFFF;
+}
+
+
+/* Page Content */
+#pageContentBox{
+position:absolute;
+top:3em;
+min-height:100%;
+width:100%;
+border:solid 1px C4D0D0;
+background-color:#F9F9F9;
+padding-bottom:20%;
+font-size:1em;
+}
+
+#pageContentBox{
+font-size:1em;
+padding:10px;
+box-sizing:border-box;
+}
+
+/* Form */
+.textField{
+width:100%;
+padding:10px;
+box-sizing:border-box;
+font-size:1.1em;
+}
+
+#deliverySettingsForm{
+padding:10px;
+}
+
+#saveProfileButton{
+width:100%;
+padding:10px;
+font-size:1.2em;
+background-color:#29991F;
+color:#FFFFFF;
+border:solid 1px #29991F;
+border-radius:3px;
+}
+
+#townDropdown{
+font-size:1.1em;
+width:100%;
+position:relative;
+top:10px;
+border:solid 1px #dcdcdc;
+border-radius:3px;
+padding:10px;
+}
+
+#topBarBack{
+float:left;
+position:absolute;
+color:#FFFFFF;
+cursor:pointer;
+top:10px;
+left:10px;
+font-size:2.5em;
+}
+
+
+</style>
+
+</head>
+
+<body>
+
+<div id="container">
+
+<div id="pageHeader">
+
+<span id="pageTitle">Delivery</span>
+
+<div id="topBarBack" onClick="window.history.back()">
+<i style="font-size:0.8em;" class="material-icons">&#xE317;</i>
+</div>
+
+</div>
+
+<div id="pageContentBox">
+
+<div id="pageContent">
+
+<form id="deliverySettingsForm" action="/profile/edit/" method="post">{% csrf_token %}
+
+<div>
+<b>DELIVERY SETTINGS</b>
+</div>
+
+<p><input class="textField" type="text" name="firstName" placeholder="First Name" value="{{loggedUser.profile.firstName}}"></p>
+<p><input class="textField" type="text" name="lastName" placeholder="Last Name" value="{{loggedUser.profile.lastName}}"></p>
+<p><input class="textField" type="email" name="email" placeholder="Email" value="{{loggedUser.email}}"></p>
+<p><input class="textField" type="text" name="phone" placeholder="Phone Number" value="{{loggedUser.profile.phone}}"></p>
+<p><input class="textField" type="text" name="addressl1" placeholder="Address Line 1" value="{{loggedUser.profile.addressl1}}"></p>
+<p><input class="textField" type="text" name="addressl2" placeholder="Address Line 2" value="{{loggedUser.profile.addressl2}}"></p>
+
+<p>
+<select id="townDropdown" name="city">
+<option value="kabwe" {% if loggedUser.profile.city == 'kabwe' %}selected{% endif %}>Kabwe</option>
+<option value="kitwe" {% if loggedUser.profile.city == 'kitwe' %}selected{% endif %}>Kitwe</option>
+<option value="lusaka" {% if loggedUser.profile.city == 'lusaka' %}selected{% endif %}>Lusaka</option>
+<option value="ndola" {% if loggedUser.profile.city == 'ndola' %}selected{% endif %}>Ndola</option>
+</select>
+</p>
+<br>
+<p><input id="saveProfileButton" type="submit" name="submit" value="SAVE"/></p>
+
+</form>
+
+
+
+</div>
+
+</div>
+
+
+</div>
+
+{% include 'analytics.html' %}
+
+</body>
+
+</html>

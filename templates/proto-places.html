@@ -1,0 +1,147 @@
+<html>
+<head>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style type="text/css">
+
+#container{
+background-color:#F6F6F6;
+width:100%;
+height:100%;
+position:fixed;
+top:0px;
+left:0px;
+}
+
+#topBar{
+position:fixed;
+height:4em;
+border:solid 1px #61B2B8;
+width:100%;
+left:0px;
+top:0px;
+background-color:#2779BB;
+z-index:3;
+}
+
+#topBarTitle{
+position:relative;
+text-align:center;
+width:100%;
+
+height:100%;
+color:#FFFFFF;
+font-size:3em;
+z-index:3;
+}
+
+body{
+font-family:'Open Sans';
+}
+
+#pageFeed{
+position:absolute;
+top:4em;
+width:100%;
+padding-top:10px;
+z-index:1;
+left:0px;
+}
+
+#topBarCart{
+position:absolute;
+right:20px;
+color:#FFFFFF;
+top:15px;
+font-size:3em;
+
+}
+
+#topBarSettings{
+position:absolute;
+left:20px;
+color:#FFFFFF;
+top:15px;
+font-size:3em;
+}
+
+.feedlet{
+width:47.5%;
+
+border:solid 1px #dcdcdc;
+padding:5px;
+box-sizing:border-box;
+float:left;
+margin:0px 5px 10px 5px;
+background-color:#FFFFFF;
+text-align:center;
+cursor:pointer;
+}
+
+.feedletImage{
+
+border:solid 1px #dcdcdc;
+width:100%;
+margin:0 auto;
+position:relative;
+left:-1px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="faderBox">
+
+</div>
+
+
+<div id="topBar">
+
+<div id="topBarTitle">Zeats</div>
+
+<div id="topBarCart">
+<i style="font-size:0.8em;"class="material-icons">shopping_cart</i>
+</div>
+
+<div id="topBarSettings">
+<i style="font-size:0.8em;" class="material-icons">settings</i>
+</div>
+
+</div>
+
+
+
+
+<div id="container">
+
+
+
+</div>
+
+
+<div id="pageFeed">
+<br>
+
+{% for restaurant in restaurants %}
+
+<a href="/places/?restaurant={{restaurant.id}}">
+<div class="feedlet">
+ 
+<img src="{{restaurant.image_thumbnail250.url}}"class="feedletImage" />
+
+</div>
+</a>
+{% empty %}
+<p>There aren't any restaurants here yet.</p>
+{% endfor %}
+
+</div>
+
+
+
+
+</body>
+
+</html>

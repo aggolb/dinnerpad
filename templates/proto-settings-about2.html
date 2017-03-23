@@ -1,0 +1,178 @@
+
+<?php /* Template Name: Manly Template */ ?>
+{% load static %}
+<html>
+
+<head>
+
+<link href='https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<link rel="icon" type="image/png" href="{% static 'favi.png' %}" />
+<title>DinnerPad</title>
+ 
+<style type="text/css">
+
+#container{
+position:absolute;
+top:0px;
+left:0px;
+width:100%;
+height:100%;
+min-height:500px;
+min-width:320px;
+background-color:#000000;
+font-family:'Open Sans';
+}
+
+/* Page Header */
+
+#pageHeader{
+position:fixed;
+z-index:2;
+border:solid 1px #484848;
+background-color:#484848;
+text-align:center;
+height:3em;
+width:100%;
+
+}
+
+#pageTitle{
+
+font-size:1.6em;
+position:relative;
+top:0.3em;
+color:#FFFFFF;
+}
+
+
+/* Page Content */
+#pageContentBox{
+position:absolute;
+top:3em;
+min-height:100%;
+width:100%;
+border:solid 1px C4D0D0;
+background-color:#F9F9F9;
+padding-bottom:20%;
+font-size:1em;
+}
+
+#pageContentBox{
+font-size:1em;
+padding:10px;
+box-sizing:border-box;
+}
+
+/* Feedlet */
+
+.feedlet{
+border-bottom:solid 1px #dcdcdc;
+background-color:#FFFFFF;
+padding:10px;
+padding-bottom:20px;
+width:100%;
+position:relative;
+box-sizing:border-box;
+margin:0px 0px 0px 0px;
+
+
+}
+
+#topBarBack{
+float:left;
+position:absolute;
+color:#FFFFFF;
+cursor:pointer;
+top:10px;
+left:10px;
+font-size:2.5em;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="container">
+
+<div id="pageHeader">
+
+<span id="pageTitle">About</span>
+
+<div id="topBarBack" onClick="window.history.back()">
+<i style="font-size:0.8em;" class="material-icons">&#xE317;</i>
+</div>
+
+</div>
+
+<div id="pageContentBox">
+
+<div id="pageContent">
+
+
+<div class="feedlet">
+
+<div style="font-size:2em;text-align:center;">
+<b> <i style="font-size:0.9em;position:relative;top:4px;"class="material-icons">&#xE561;</i></b>
+</div>
+
+<h3>What is DinnerPad?</h3>
+<p>
+<p>DinnerPad is a service that makes it easy for Zambians to order delicious food from local restaurants and takeaways. Even from some that don't usually deliver!</p>
+<p>You can browse the full menus and pick whatever you like from the comfort of your own home or office.</p>
+<p>You can even try new restaurants and cuisines without having to get all dressed up.</p>
+<p>Eat in style on your own terms.</p>
+</p>
+
+<h3>How do I make an order?</h3>
+<p>
+It's really simple:
+
+<p>1. Choose your town/city.</p>
+<p>2. Pick a restaurant and choose your food. ( make sure you reach minimum order amount for delivery. )</p>
+<p>3. Place your order and wait for delivery to arrive.</p>
+<p>4. Pay with Cash.</p>
+<p>5. Enjoy!</p>
+
+
+</p>
+
+<h3>
+NOTE
+</h3>
+<p>
+We aim to provide the best service possible so those who abuse the system by ordering and refusing to pay risk getting banned.
+</p>
+
+<h3>CONTACT US</h3>
+<p>Email: zedeats@gmail.com</p>
+<p style="display:none;">Phone: +260977890725</p>
+</div>
+
+
+
+
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+</div>
+
+{% include 'analytics.html' %}
+
+</body>
+
+</html>

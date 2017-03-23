@@ -1,0 +1,428 @@
+<html>
+<head>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style type="text/css">
+
+#container{
+background-color:#F6F6F6;
+width:100%;
+height:100%;
+position:fixed;
+top:0px;
+left:0px;
+}
+
+#topBar{
+position:fixed;
+height:4em;
+border:solid 1px #61B2B8;
+width:100%;
+left:0px;
+top:0px;
+background-color:#2779BB;
+z-index:3;
+}
+
+#topBarTitle{
+position:relative;
+text-align:center;
+width:100%;
+
+height:100%;
+color:#FFFFFF;
+font-size:3em;
+z-index:3;
+}
+
+body{
+font-family:'Open Sans';
+}
+
+#pageFeed{
+position:absolute;
+top:4em;
+width:100%;
+padding-top:10px;
+z-index:1;
+left:0px;
+}
+
+#topBarCart{
+position:absolute;
+right:20px;
+color:#FFFFFF;
+top:15px;
+font-size:3em;
+
+}
+
+#topBarSettings{
+position:absolute;
+left:20px;
+color:#FFFFFF;
+top:15px;
+font-size:3em;
+}
+
+.feedlet{
+border-bottom:solid 1px #dcdcdc;
+background-color:#FFFFFF;
+padding:10px;
+padding-bottom:20px;
+width:100%;
+position:relative;
+box-sizing:border-box;
+margin:0px 0px 0px 0px;
+height:7.5em;
+
+}
+
+.feedletTitle{
+
+}
+
+.feedletDescription{
+color:gray;
+}
+
+.feedletPrice{
+position:absolute;
+
+top:10px;
+right:10px;
+}
+
+.feedletAddButton{
+border:solid 1px #dcdcdc;
+border-radius:10px;
+padding:10px;
+box-sizing:border-box;
+position:absolute;
+right:10px;
+color:#FFFFFF;
+background-color:#29991F;
+}
+
+.feedletOptions{
+position:fixed;
+width:80%;
+height:10em;
+border-radius:5px;
+border:solid 1px #dcdcdc;
+background-color:#FFFFFF;
+z-index:5;
+left:50%;
+margin-left:-40%;
+padding:10px;
+box-sizing:border-box;
+top:50%;
+margin-top:-5em;;
+display:none;
+}
+
+.categoryTitle{
+width:100%;
+padding:10px;
+border:solid 1px #dcdcdc;
+background-color:#CFD0D4;
+}
+
+#restaurantInfo{
+background-color:#FFFFFF;
+border:solid 1px #dcdcdc;
+position:relative;
+padding:10px;
+box-sizing:border-box;
+z-index:3;
+height:16em;
+}
+
+#restaurantPic{
+background-color:gray;
+width:10em;
+height:10em;
+border:solid 1px #dcdcdc;
+
+}
+
+#restaurantMeta{
+position:absolute;
+padding-left:10.3em;
+padding-top:10px;
+top:0px;
+}
+
+#starRatings{
+color:#D8D810;
+
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="faderBox">
+
+</div>
+
+
+<div id="topBar">
+
+<div id="topBarTitle">Zeats</div>
+
+<div id="topBarCart">
+<i style="font-size:0.8em;"class="material-icons">shopping_cart</i>
+</div>
+
+<div id="topBarSettings">
+<i style="font-size:0.8em;" class="material-icons">settings</i>
+</div>
+
+</div>
+
+
+
+
+<div id="container">
+
+
+
+</div>
+
+
+
+<div id="pageFeed">
+
+<div style=""id="restaurantInfo">
+
+<img src="{{restaurant.image_thumbnail250.url}}"id="restaurantPic"/>
+
+
+
+<div id="restaurantMeta">
+<b style="font-size:1.5em;">{{restaurant.name}}</b>
+<br>
+
+<div id="starRatings">
+
+{% if restaurant.rating <= 1 %}
+<i class="material-icons">star</i> 
+<i class="material-icons">star_border</i>
+<i class="material-icons">star_border</i>
+<i class="material-icons">star_border</i>
+<i class="material-icons">star_border</i>
+{% elif restaurant.rating <= 2 %}
+<i class="material-icons">star</i> 
+<i class="material-icons">star</i>
+<i class="material-icons">star_border</i>
+<i class="material-icons">star_border</i>
+<i class="material-icons">star_border</i>
+{% elif restaurant.rating <= 3 %}
+<i class="material-icons">star</i> 
+<i class="material-icons">star</i>
+<i class="material-icons">star</i>
+<i class="material-icons">star_border</i>
+<i class="material-icons">star_border</i>
+{% elif restaurant.rating <= 4 %}
+<i class="material-icons">star</i> 
+<i class="material-icons">star</i>
+<i class="material-icons">star</i>
+<i class="material-icons">star</i>
+<i class="material-icons">star_border</i>
+{% elif restaurant.rating <= 5 %}
+<i class="material-icons">star</i> 
+<i class="material-icons">star</i>
+<i class="material-icons">star</i>
+<i class="material-icons">star</i>
+<i class="material-icons">star</i>
+{% endif %}
+
+</div>
+
+<div style="font-size:0.8em;">
+<b>Minimum Order: </b>K {{restaurant.minimum_order_amount}}<br>
+<b>Delivery Fee: </b>K {{restaurant.delivery_fee}} {% if restaurant.delivery_fee == 0 %}( FREE ){% endif %}
+</div>
+<br>
+
+<div id="openingTimes" style="font-size:0.8em;position:relative;top:-10px;">
+<div>
+<b>Weekday Opening Time: </b>{{restaurant.weekday_open}} - {{restaurant.weekday_close}}
+</div>
+<div>
+<b>Saturday Opening Time: </b>{{restaurant.saturday_open}} - {{restaurant.saturday_close}}
+</div>
+<div>
+<b>Sunday Opening Time: </b>{{restaurant.sunday_open}} - {{restaurant.sunday_close}}
+</div>
+
+</div>
+
+</div>
+
+<p><b>Latest Review</b> - ( <a href="/reviews/?restaurant={{restaurant.id}}">See All Reviews</a> )</p>
+{% if latest_review %}
+<p><i>"{{latest_review.description}}" - {{latest_review.user.profile.firstName}}</i></p>
+{% else %}
+<p>There aren't any reviews yet.</p>
+{% endif %}
+</div>
+<br>
+
+<div class="categoryTitle">
+<b>STARTERS</b>
+</div>
+
+<div class="feedlet">
+
+<div class="feedletTitle">
+<b>Supreme Chicken Pizza</b>
+</div>
+
+<div class="feedletDescription">
+Chicken, Green Peppers, Tomatoes
+</div>
+
+<div class="feedletPrice">
+<b>K20</b>
+</div>
+
+<div class="feedletAddButton">
+ADD
+</div>
+
+<div class="feedletOptions">
+Seect your options.
+<p><b>Quantity:</b> </p>
+<p><b>Size:</b> </p>
+</div>
+
+</div>
+
+<br>
+
+<div class="categoryTitle">
+<b>STARTERS</b>
+</div>
+
+<div class="categoryTitle">
+<b>DRINKS</b>
+</div>
+
+<div class="feedlet">
+
+<div class="feedletTitle">
+<b>Coca Cola</b>
+</div>
+
+<div class="feedletDescription">
+Soft Drinks
+</div>
+
+<div class="feedletPrice">
+<b>K12</b>
+</div>
+
+<div class="feedletAddButton">
+ADD
+</div>
+
+</div>
+
+
+<div class="feedlet">
+
+<div class="feedletTitle">
+<b>Sprite</b>
+</div>
+
+<div class="feedletDescription">
+Soft Drinks
+</div>
+
+<div class="feedletPrice">
+<b>K16</b>
+</div>
+
+<div class="feedletAddButton">
+ADD
+</div>
+
+</div>
+
+<div class="feedlet">
+
+<div class="feedletTitle">
+<b>Sprite</b>
+</div>
+
+<div class="feedletDescription">
+Soft Drinks
+</div>
+
+<div class="feedletPrice">
+<b>K16</b>
+</div>
+
+<div class="feedletAddButton">
+ADD
+</div>
+
+</div>
+
+<div class="feedlet">
+
+<div class="feedletTitle">
+<b>Sprite</b>
+</div>
+
+<div class="feedletDescription">
+Soft Drinks
+</div>
+
+<div class="feedletPrice">
+<b>K16</b>
+</div>
+
+<div class="feedletAddButton">
+ADD
+</div>
+
+</div>
+
+<div class="categoryTitle">
+<b>DESERTS</b>
+</div>
+
+<div class="feedlet">
+
+<div class="feedletTitle">
+<b>Sprite</b>
+</div>
+
+<div class="feedletDescription">
+Soft Drinks
+</div>
+
+<div class="feedletPrice">
+<b>K16</b>
+</div>
+
+<div class="feedletAddButton">
+ADD
+</div>
+
+</div>
+
+
+</div>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+
+
+<style type="text/css">
+.itemBox{
+border:solid 1px #000000;
+}
+
+.variationFormBox{
+display:none;
+}
+
+.extraFormBox{
+display:none;
+}
+</style>
+
+{% for item in menu %}
+
+<div class="itemBox" >
+<div>
+{{item.name}} - from K{{item.price|floatformat:2}}
+</div>
+<div>
+{{item.description}}
+</div>
+<br>
+<a href="/menu/delete-menu-item/?item={{item.id}}">
+<div style="color:red;">
+Delete 
+</div>
+</a>
+<br>
+
+<div class="addExtraButton">
+Add Extra
+</div>
+<br>
+<div class="extraFormBox">
+
+<div class="extraFeed">
+
+{% include 'extra_feed.html' %}
+
+</div>
+
+<form item_id="{{item.id}}" class="extraForm" action="/menu/create-extra/?item={{item.id}}" method="post">{% csrf_token %}
+
+<p>
+<input type="text" name="extraName" placeholder="extra"/>
+</p>
+
+<p>
+<input type="text" name="extraPrice" placeholder="extraPrice"/>
+</p>
+
+<p>
+<input type="submit" name="submit" value="Submit"/>
+</p>
+
+</form>
+
+</div>
+<br>
+
+<div style="cursor:pointer;"class="addVariationButton">
+Add Variation
+</div>
+
+<div class="variationFormBox">
+
+<div class="propertyFeed">
+
+{% include 'property-feed.html' %}
+
+</div>
+
+
+<form item_id="{{item.id}}"class="variationForm" action="/menu/create-variation/?item={{item.id}}" method="post">{% csrf_token %}
+
+<p>
+<input type="text" name="propertyName" placeholder="propertyName"/>
+</p>
+
+<p>
+<input type="submit" name="submit" value="Submit"/>
+</p>
+
+</form>
+</div>
+
+</div>
+
+
+{% empty %}
+<p>There are no items in the menu</p>
+{% endfor %}

@@ -1,0 +1,39 @@
+{% for property in item.properties.all %}
+
+<div>
+
+
+
+
+<p>
+{{property.code}} <span style="cursor:pointer;"class="addMenuVariationButton">  +  </span>
+</p>
+
+<div style="display:none;"class="addMenuVariationFormBox">
+<form item_id="{{property.item.id}}"class="addMenuVariationForm" action="/menu/add-variation/?item_id={{property.id}}" method="post">{% csrf_token %}
+<p>
+<input type="text" name="propertyValue" placeholder="propertyValue"/>
+</p>
+
+<p>
+<input type="text" name="propertyPrice" placeholder="propertyPrice"/>
+</p>
+
+<p>
+<input type="submit" name="submit" value="Submit"/>
+</p>
+
+</form>
+</div>
+
+{% for value in property.values.all %}
+<p>
+{{value.description}} : K{{value.price|floatformat:2}}
+</p>
+
+{% empty %}
+<p>You have no variations</p>
+{% endfor %}
+
+</div>
+{% endfor %}

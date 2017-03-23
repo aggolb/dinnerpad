@@ -1,0 +1,8 @@
+Extras: 
+{% for extra in item.extras.all %}
+
+{{extra.code}} {% if extra.price == 0 %}( FREE ){% else %} ( plus K {{extra.price|floatformat:2}} ){% endif %},  
+
+{% empty %}
+<p>You have no extras. </p>
+{% endfor %}

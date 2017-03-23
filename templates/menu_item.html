@@ -1,0 +1,62 @@
+
+<div menu_item_id="{{item.id}}" class="feedlet">
+
+<div class="feedletTitle">
+<b>{{item.name}}</b>
+</div>
+
+<div class="feedletDescription">
+{{item.description}}
+</div>
+
+<div class="feedletPrice">
+from <b>K{{item.price_adjusted|floatformat:2}}</b>
+</div>
+
+<div class="feedletAddButton">
+ADD
+</div>
+
+<div class="menuOptions">
+
+<form class="menuOptionsForm" action="/order/add-item/" method="post">{% csrf_token %}
+<p><b>Item: </b>{{item.name}}</p>
+
+{% for property in item.properties.all %}
+<p><b>{{property.code}} :</b></p>
+<p>
+<select style="width:100%;font-size:1em;padding:10px;" class="propertySelect" name="values[]">
+<option price="none">Choose...</option>
+{% for value in property.values.all %}
+<option  price="{{value.price_adjusted}}"value="{{value.id}}">{{value.description}} {% if value.price_adjusted > 0 %}- K {{value.price_adjusted|floatformat:2}} {% endif %}</option>
+{% endfor %}
+</select>
+</p>
+{% endfor %}
+
+{% if item.extras.all.count > 0 %}
+<p><b>Extras :</b></p>
+
+
+{% for extra in item.extras.all %}
+<div class="extraCheckBoxOption"style="padding-right:10px;display:inline-block;">
+<input class="extraCheckBox"type="checkbox" disabled extra_price="{{extra.price_adjusted}}" value="{{extra.id}}" name="extras[]">{{extra.code}} {% if extra.price_adjusted == 0 %}{% else %} ( + K {{extra.price_adjusted|floatformat:2}} ){% endif %}
+</div>
+{% endfor %}
+
+
+{% endif %}
+
+<p><b>Cost:</b> K <span class="itemPriceValue">{{item.price_adjusted|floatformat:2}}</span> x <span class="totalQuantityQuote">1</span> = K <span class="totalPriceQuote">{{item.price_adjusted|floatformat:2}}</span></p>
+
+<p><input type="hidden" name="itemName" value="{{item.name}}"/></p>
+<p><span style="float:left;padding-right:10px;position:relative;top:10px;"><b>Quantity:</b> </span> <div class="menuQuantitySubtract"><i class="material-icons">&#xE15C;</i></div> <input class="menuQuantityField" type="text" name="orderQuantity" value="1" readonly /> <div class="menuQuantityAdd"><i class="material-icons">&#xE147;</i></div></p>
+<p><input type="hidden" name="menuItemId" value="{{item.id}}"/></p>
+<p><input class="totalItemPriceField" type="hidden" name="totalItemPrice" value="{{item.price_adjusted}}"/></p><br><br>
+<span class="optionMessage"style="color:red;display:none;">You left an option blank.</span>
+<p><input class="addToCartButton" type="submit" name="submit" value="Add to Cart"/></p>
+</form>
+
+</div>
+
+</div>

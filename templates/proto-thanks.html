@@ -1,0 +1,212 @@
+<html>
+<head>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style type="text/css">
+
+#container{
+background-color:#F6F6F6;
+width:100%;
+height:100%;
+position:fixed;
+top:0px;
+left:0px;
+}
+
+#topBar{
+position:fixed;
+height:4em;
+border:solid 1px #61B2B8;
+width:100%;
+left:0px;
+top:0px;
+background-color:#2779BB;
+z-index:3;
+}
+
+#topBarTitle{
+position:relative;
+text-align:center;
+width:100%;
+
+height:100%;
+color:#FFFFFF;
+font-size:3em;
+z-index:3;
+}
+
+body{
+font-family:'Open Sans';
+}
+
+#pageFeed{
+position:absolute;
+top:4em;
+width:100%;
+padding-top:10px;
+z-index:1;
+left:0px;
+}
+
+#topBarCart{
+position:absolute;
+right:20px;
+color:#FFFFFF;
+top:15px;
+font-size:3em;
+
+}
+
+#topBarSettings{
+position:absolute;
+left:20px;
+color:#FFFFFF;
+top:15px;
+font-size:3em;
+}
+
+.feedlet{
+border-bottom:solid 1px #dcdcdc;
+background-color:#FFFFFF;
+padding:10px;
+padding-bottom:20px;
+width:100%;
+position:relative;
+box-sizing:border-box;
+margin:0px 0px 0px 0px;
+
+text-align:center;
+
+}
+
+
+.feedletTitle{
+
+}
+
+.feedletDescription{
+color:gray;
+}
+
+.feedletPrice{
+position:absolute;
+
+top:10px;
+right:10px;
+}
+
+.feedletChangeButton{
+border:solid 1px #dcdcdc;
+border-radius:10px;
+padding:10px;
+box-sizing:border-box;
+position:absolute;
+right:10px;
+color:#FFFFFF;
+background-color:#585C58;
+}
+
+.feedletOptions{
+position:fixed;
+width:80%;
+height:10em;
+border-radius:5px;
+border:solid 1px #dcdcdc;
+background-color:#FFFFFF;
+z-index:5;
+left:50%;
+margin-left:-40%;
+padding:10px;
+box-sizing:border-box;
+top:50%;
+margin-top:-5em;;
+display:none;
+}
+
+.categoryTitle{
+width:100%;
+padding:10px;
+border:solid 1px #dcdcdc;
+background-color:#CFD0D4;
+}
+
+#placeOrderButton{
+
+padding:20px;
+box-sizing:border-box;
+color:#FFFFFF;
+text-align:center;
+border:solid 1px #dcdcdc;
+border-radius:3px;
+background-color:#29991F;
+font-size:1.2em;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="faderBox">
+
+</div>
+
+
+<div id="topBar">
+
+<div id="topBarTitle">Zeats</div>
+
+<div style="display:none;"id="topBarCart">
+<i style="font-size:0.8em;"class="material-icons">shopping_cart</i>
+</div>
+
+<div style="display:none;" id="topBarSettings">
+<i style="font-size:0.8em;" class="material-icons">settings</i>
+</div>
+
+</div>
+
+
+
+
+<div id="container">
+
+
+
+</div>
+
+
+<div id="pageFeed">
+
+
+<div class="feedlet">
+
+<div style="font-size:5em;">
+Woohoo!
+</div>
+
+<div >
+<i style="font-size:10em;color:gray;"class="material-icons">local_shipping</i>
+</div>
+
+<div style="font-size:1.5em;">
+<p>Your order has been placed.</p>
+
+<p><b>Expected Delivery Time:</b> </p> Between 14:00 and 15:00 hrs
+</div>
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+</body>
+
+</html>
