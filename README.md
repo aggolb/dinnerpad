@@ -1,4 +1,4 @@
-# Dinnerpad
+# Dinnerpad (zeats)
 A full fledged food ordering app written in Python, Django, HTML5, CSS and Javascript.
 
 ## Features
